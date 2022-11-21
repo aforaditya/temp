@@ -1,3 +1,8 @@
+
+
+
+
+
 a.Simulation of FCFS CPU Scheduling algorithm.#include<iostream>
 
 using namespace std;
@@ -203,3 +208,38 @@ for (i = 0; i < n; i++) {
 }
 avg_tat = total / n; //average turnaround time cout<<"\nAverage Waiting Time="<<avg_wt; cout<<"\nAverage Turnaround Time="<<avg_tat; return 0; 
 }
+
+
+exp 10
+
+Round Robin (Non-pre-emptive) Scheduling in C  
+#include<stdio.h> int main ()  
+{ int n, tq, i, sum = 0; static int ptr=0; float tat = 0, wt = 0; 
+printf ("Enter the number of the processes: "); scanf ("%d", &n); 
+int at[n], bt[n], btcopy[n], ct[n]; 
+printf ("Enter the time quantum for round robin: "); 
+scanf ("%d", &tq); for (i = 0; i < n; i++) 
+{ printf ("For process % d \n", i + 1); printf ("\tEnter Arrival Time: "); scanf ("%d", &at[i]); printf ("\tEnter Burst Time: "); scanf ("%d", &bt[i]); btcopy[i] = bt[i]; sum += bt[i]; 
+} 
+while(ptr!=sum) 
+{ 
+for (i = 0; i < n; i++) 
+{  
+if (bt[i] > tq) 
+{ bt[i]-= tq; ptr += tq; } 
+else if (bt[i] == tq) 
+{ ptr += bt[i]; bt[i]-=tq; ct[i] = ptr; } 
+else if (bt[i] < tq) 
+{ if(bt[i]==0) continue; ptr += bt[i]; bt[i]=0; ct[i] = ptr; 
+} 
+} } printf  
+    ("\nProcess\tArrival Time \tBurst Time\tCompletion 
+Time\tTurnaround Time\tWaiting Time\n"); for (i = 0; i < n; i++) 
+{ 
+printf ("%d\t%8d\t%8d\t%8d\t%8d\t%8d\n", i + 1, at[i], btcopy[i], 
+ 	 	 ct[i],  
+ct[i] - at[i], ct[i] - at[i] - btcopy[i]); tat += ct[i] - at[i]; wt += ct[i]- at[i] - btcopy[i]; 
+} 
+printf ("\nAverage Turnaround Time:  %f", tat / n); printf ("\nAverage Waiting Time:  %f", wt / n); return 0; 
+}  
+
